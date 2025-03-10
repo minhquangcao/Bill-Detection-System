@@ -24,7 +24,6 @@ def encode_image(image_path):
     except Exception as e:  # Added general exception handling
         print(f"Error: {e}")
         return None
-# ="../assets/IMG_2430.jpg"
 
 def get_chat_response(image_path):
     # Getting the base64 string

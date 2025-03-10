@@ -50,6 +50,7 @@ function displayReceiptData(receiptData) {
     document.getElementById("storeName").innerText = receiptData.store_name || "-";
     document.getElementById("receiptDate").innerText = receiptData.date || "-";
     document.getElementById("invoiceCode").innerText = receiptData.invoice_code || "-";
+
     let productsList = document.getElementById("productsList");
     productsList.innerHTML = "";
 
@@ -63,5 +64,27 @@ function displayReceiptData(receiptData) {
         let errorMessage = document.createElement("li");
         errorMessage.innerText = "No products found.";
         productsList.appendChild(errorMessage);
+    }
+
+    // Now we compare the selected product with the extracted products
+    compareProductWithReceipt(receiptData.products);
+}
+
+function compareProductWithReceipt(receiptProducts) {
+    const selectedProduct = document.getElementById("productSelect").value;
+    const comparisonResultElement = document.getElementById("comparisonResult");
+
+    if (selectedProduct === "0") {
+        comparisonResultElement.innerText = "Please select a product to compare.";
+        return;
+    }
+
+    // Check if the selected product is in the receipt
+    const productFound = receiptProducts.some(product => product.name === selectedProduct);
+
+    if (productFound) {
+        comparisonResultElement.innerText = `✅ ${selectedProduct} is found in the receipt!`;
+    } else {
+        comparisonResultElement.innerText = `❌ ${selectedProduct} is NOT found in the receipt.`;
     }
 }
